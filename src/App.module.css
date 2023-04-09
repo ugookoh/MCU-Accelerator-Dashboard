@@ -1,0 +1,120 @@
+html {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    color: white;
+    white-space: pre-line;
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    max-width: 1200px;
+    width: 90%;
+    height: 90vh;
+    background-color: black;
+    border-radius: 30px;
+    -webkit-box-shadow: 0px -1px 16px 0px rgba(255, 255, 255, 0.25);
+    box-shadow: 0px -1px 16px 0px rgba(255, 255, 255, 0.25);
+    min-height: 400px;
+    overflow-y: scroll;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
+}
+
+.title {
+    font-size: 250%;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 150%;
+    font-weight: 700;
+}
+
+.itemsView {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.chartDiv2 {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    width: 100%;
+    -webkit-box-shadow: 0px -1px 16px 0px rgba(255, 255, 255, 0.55);
+    box-shadow: 0px -1px 16px 0px rgba(255, 255, 255, 0.55);
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.chartDiv {
+    width: 100%;
+    min-height: 350px;
+    -webkit-box-shadow: 0px -1px 16px 0px rgba(255, 255, 255, 0.55);
+    box-shadow: 0px -1px 16px 0px rgba(255, 255, 255, 0.55);
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.line {
+    width: 100%;
+}
+
+.uploadCont {
+    justify-content: center;
+    align-items: center;
+}
+
+.uploadCont:hover {
+    cursor: pointer;
+}
+
+.uploadCont:active {
+    opacity: 0.5;
+}
+
+.image {
+    object-fit: contain;
+    width: 80%;
+    max-width: 270px;
+}
+
+.uploadCSV {
+    font-weight: 300;
+    margin-top: 15px;
+    font-size: 95%;
+}
+
+.pick {
+    background-color: rgb(226, 231, 82);
+}
