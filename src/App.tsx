@@ -19,7 +19,7 @@ import faker from "faker";
 //@ts-ignore
 import Hammer from "hammerjs";
 import zoom from "chartjs-plugin-zoom";
-import { getCalculations, handleFileUpload } from "./utils";
+import { calculateVelocity, getCalculations, handleFileUpload } from "./utils";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, zoom);
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
   const [dragActive, setDragActive] = React.useState(false);
   const [data, setData] = useState<any>(null);
   const [gyroData, setGyroData] = useState<any>(null);
+  const [velocityData, setVelocityData] = useState<any>(null);
   const [calculations, setCalculations] = useState<any>({});
   const [props, startProps] = useSpring(() => ({
     from: { opacity: 0 },
@@ -96,6 +97,38 @@ function App() {
               data: result.map((item) => Number(item[2])),
               borderColor: "rgb(217, 65, 176)",
               backgroundColor: "rgba(217, 65, 176, 0.5)",
+            },
+          ],
+        });
+        setVelocityData({
+          labels: result.map((item, index) => index),
+          datasets: [
+            {
+              label: "x-velocity",
+              data: calculateVelocity(
+                result.map((item) => [Number(item[0])]),
+                0.2
+              ),
+              borderColor: "rgb(232, 99, 255)",
+              backgroundColor: "rgba(232, 99, 255, 0.5)",
+            },
+            {
+              label: "y-velocity",
+              data: calculateVelocity(
+                result.map((item) => [Number(item[1])]),
+                0.2
+              ),
+              borderColor: "rgb(128, 99, 255)",
+              backgroundColor: "rgba(128, 99, 255, 0.5)",
+            },
+            {
+              label: "z-velocity",
+              data: calculateVelocity(
+                result.map((item) => [Number(item[2])]),
+                0.2
+              ),
+              borderColor: "rgb(255, 99, 99)",
+              backgroundColor: "rgba(255, 99, 99, 0.5)",
             },
           ],
         });
@@ -218,7 +251,11 @@ function App() {
                 </span>
               }
             />
-            <AnimatedTextBox title="Estimated amount of collisions" value={13} unit={<span>collisions</span>} />
+            <AnimatedTextBox
+              title="Estimated amount of collisions"
+              value={calculations?.collisions || 0}
+              unit={<span>collisions</span>}
+            />
             <AnimatedTextBox
               title="Maximum Rotation in x-axis"
               value={calculations?.max_x_rotation || 0}
@@ -268,37 +305,48 @@ function App() {
             />
           </div>
           <p className={styles.subtitle} style={{ marginTop: "35px" }}>
-            Calculation and Analytics for Acceleration
+            Calculations and Analytics
           </p>
           <div className={styles.itemsView}>
+            <AnimatedTextBox title={"Total Session Time"} value={calculations?.totalTime || 0} unit={<></>} noAnimate />
             <AnimatedTextBox
-              title={"Calculation 1"}
-              value={100}
-              unit={
-                <span>
-                  m/s<sup>2</sup>
-                </span>
-              }
-            />
-            <AnimatedTextBox
-              title={"Calculation 2"}
-              value={128.6}
-              unit={
-                <span>
-                  meters/second<sup>2</sup>
-                </span>
-              }
-            />
-            <AnimatedTextBox
-              title={"Calculation 3"}
-              value={290.53}
-              unit={
-                <span>
-                  degrees/radians<sup>2</sup>
-                </span>
-              }
+              title={"Estimated amount of steps"}
+              value={calculations?.steps || 0}
+              unit={<span>steps</span>}
             />
           </div>
+          {/* <p className={styles.subtitle} style={{ marginTop: "15px" }}>
+            Graphical Analysis of Estimated Velocity
+          </p>
+          <div className={styles.chartDiv}>
+            <Line
+              width={"100%"}
+              data={velocityData}
+              className={styles.line}
+              options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: "top" as const,
+                  },
+                  title: {
+                    display: true,
+                    text: "Acceleration Analysis",
+                  },
+                },
+                maintainAspectRatio: false,
+                //@ts-ignore
+                zoom: {
+                  enabled: true,
+                  mode: "xy",
+                },
+                pan: {
+                  enabled: true,
+                  mode: "xy",
+                },
+              }}
+            />
+          </div> */}
           <p className={styles.subtitle} style={{ marginTop: "35px" }}>
             Graphical Analysis of Rotational Acceleration
           </p>

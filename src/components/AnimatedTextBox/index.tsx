@@ -5,12 +5,14 @@ interface Props {
   title: string;
   value: number;
   unit: JSX.Element;
+  noAnimate?: boolean;
 }
 
-const AnimatedTextBox = ({ title, value, unit }: Props) => {
+const AnimatedTextBox = ({ title, value, unit, noAnimate }: Props) => {
   const [count, setCount] = useState(0);
   const duration = 2;
   useEffect(() => {
+    if (noAnimate) return;
     setCount(0);
     setTimeout(() => {
       let start = 0;
@@ -34,7 +36,7 @@ const AnimatedTextBox = ({ title, value, unit }: Props) => {
     <div className={styles.container}>
       <p className={styles.title}>{title}</p>
       <p className={styles.value}>
-        {Number(count.toFixed(3))} {unit}
+        {noAnimate ? value : Number(count.toFixed(3))} {unit}
       </p>
     </div>
   );
